@@ -6,7 +6,7 @@
 		"title": "xMatters Integration API"
 	},
 	"host": "cloudagent.no-ip.org",
-	"basePath": "/",
+	"basePath": "/api/integration/1",
 	"paths": {
 		"/functions/{functionId}": {
 			"get": {
