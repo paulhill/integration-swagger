@@ -1,0 +1,724 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "xMatters Integration API",
+		"version": "0.2.0",
+		"title": "xMatters Integration API"
+	},
+	"host": "cloudagent.no-ip.org",
+	"basePath": "/",
+	"paths": {
+		"/functions/{functionId}": {
+			"get": {
+				"tags": [
+					"Functions"
+				],
+				"summary": "Retrieve function information including number of log requests remaining for a given function",
+				"operationId": "getFunction",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"$ref": "#/parameters/functionId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Function"
+						}
+					},
+					"401": {
+						"$ref": "#/responses/401"
+					},
+					"403": {
+						"$ref": "#/responses/403"
+					},
+					"429": {
+						"$ref": "#/responses/429"
+					}
+				}
+			},
+			"patch": {
+				"tags": [
+					"Functions"
+				],
+				"summary": "Set function info including number of log requests remaining for a given integration",
+				"operationId": "patchFunction",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"$ref": "#/parameters/functionId"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Function"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Function"
+						}
+					},
+					"400": {
+						"$ref": "#/responses/400"
+					},
+					"401": {
+						"$ref": "#/responses/401"
+					},
+					"403": {
+						"$ref": "#/responses/403"
+					},
+					"429": {
+						"$ref": "#/responses/429"
+					}
+				}
+			}
+		},
+		"/functions/{functionId}/results": {
+			"get": {
+				"tags": [
+					"Functions"
+				],
+				"summary": "Retrieve the most recent processing results and logs for a given function",
+				"operationId": "getFunctionResults",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"$ref": "#/parameters/functionId"
+					},
+					{
+						"$ref": "#/parameters/offset"
+					},
+					{
+						"$ref": "#/parameters/limit"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/JobResult"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/functions/{functionId}/executions": {
+			"post": {
+				"tags": [
+					"Executions"
+				],
+				"summary": "Execute the integration function specified with the payload provided.",
+				"operationId": "postFunctionExecution",
+				"consumes": [
+					"application/json",
+					"application/xml",
+					"application/soap+xml",
+					"text/xml",
+					"*/*"
+				],
+				"produces": [
+					"application/json",
+					"application/xml",
+					"application/soap+xml",
+					"text/xml"
+				],
+				"parameters": [
+					{
+						"$ref": "#/parameters/functionId"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"description": "body",
+						"required": true
+					}
+				],
+				"responses": {
+					"202": {
+						"description": "Accepted",
+						"schema": {
+							"$ref": "#/definitions/Execution"
+						}
+					},
+					"400": {
+						"$ref": "#/responses/400"
+					},
+					"401": {
+						"$ref": "#/responses/401"
+					},
+					"403": {
+						"$ref": "#/responses/403"
+					},
+					"409": {
+						"$ref": "#/responses/409"
+					},
+					"429": {
+						"$ref": "#/responses/429"
+					}
+				}
+			}
+		},
+		"/executions/{executionId}/log": {
+			"get": {
+				"tags": [
+					"Executions"
+				],
+				"summary": "Fetch the log for an execution",
+				"operationId": "getExecutionLog",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/octet-stream"
+				],
+				"parameters": [
+					{
+						"$ref": "#/parameters/executionId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"401": {
+						"$ref": "#/responses/401"
+					},
+					"403": {
+						"$ref": "#/responses/403"
+					},
+					"429": {
+						"$ref": "#/responses/429"
+					}
+				}
+			}
+		},
+		"/tickets": {
+			"get": {
+				"tags": [
+					"Tickets"
+				],
+				"summary": "Gets a list of tickets for the current org, or for all tickets if org not specified.",
+				"operationId": "getTickets",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"$ref": "#/parameters/orgId"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Ticket"
+							}
+						}
+					},
+					"401": {
+						"$ref": "#/responses/401"
+					},
+					"403": {
+						"$ref": "#/responses/403"
+					},
+					"404": {
+						"$ref": "#/responses/404"
+					},
+					"429": {
+						"$ref": "#/responses/429"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"Tickets"
+				],
+				"summary": "Post a request to configure the current org to have this many tickets with this batch size.",
+				"operationId": "postTicket",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "ticket request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/TicketRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Ticket"
+							}
+						}
+					},
+					"201": {
+						"description": "Tickets created",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Ticket"
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/responses/400"
+					},
+					"401": {
+						"$ref": "#/responses/401"
+					},
+					"403": {
+						"$ref": "#/responses/403"
+					},
+					"404": {
+						"$ref": "#/responses/404"
+					},
+					"429": {
+						"$ref": "#/responses/429"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Tickets"
+				],
+				"summary": "Remove all tickets that belong to the current org",
+				"operationId": "removeTicket",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"responses": {
+					"200": {
+						"$ref": "#/responses/200"
+					},
+					"204": {
+						"$ref": "#/responses/204"
+					},
+					"401": {
+						"$ref": "#/responses/401"
+					},
+					"403": {
+						"$ref": "#/responses/403"
+					},
+					"429": {
+						"$ref": "#/responses/429"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Function": {
+			"properties": {
+				"stuff": {
+					"type": "string"
+				}
+			}
+		},
+		"Execution": {
+			"properties": {
+				"stuff": {
+					"type": "string"
+				}
+			}
+		},
+		"Ticket": {
+			"properties": {
+				"stuff": {
+					"type": "string"
+				}
+			}
+		},
+		"HttpRequest": {
+			"properties": {
+				"body": {
+					"type": "string"
+				},
+				"headers": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"method": {
+					"type": "string"
+				},
+				"parameters": {
+					"type": "object"
+				},
+				"remoteAddr": {
+					"type": "string"
+				},
+				"requestId": {
+					"type": "string"
+				},
+				"timestamp": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"url": {
+					"type": "string"
+				}
+			}
+		},
+		"GoldenTicket": {
+			"required": [
+				"batchSize",
+				"orgKey",
+				"uuid"
+			],
+			"properties": {
+				"batchSize": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Max batch size of requests that will be processed before the ticket is returned to the queue"
+				},
+				"orgKey": {
+					"type": "string",
+					"description": "Organization identifier"
+				},
+				"uuid": {
+					"type": "string",
+					"description": "UUID for the Golden Ticket instance"
+				}
+			}
+		},
+		"Map«string,string»": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "string"
+			}
+		},
+		"WebhookConfiguration": {
+			"properties": {
+				"action": {
+					"type": "string"
+				},
+				"integrationId": {
+					"type": "string"
+				},
+				"mainMethod": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"requestsToLog": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"type": {
+					"type": "string"
+				},
+				"webhookId": {
+					"type": "string"
+				}
+			}
+		},
+		"JobResult": {
+			"properties": {
+				"completedTime": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"job": {
+					"$ref": "#/definitions/IntegrationServiceJob"
+				},
+				"logfileName": {
+					"type": "string"
+				},
+				"startTime": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"status": {
+					"type": "string",
+					"enum": [
+						"COMPLETED",
+						"WARNING",
+						"FAILED"
+					]
+				}
+			}
+		},
+		"IntegrationConfiguration": {
+			"properties": {
+				"description": {
+					"type": "string"
+				},
+				"endpoints": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/EndpointConfiguration"
+					}
+				},
+				"endpointsFromString": {
+					"type": "string"
+				},
+				"integrationId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"integrationIdFromString": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"revision": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"script": {
+					"type": "string"
+				},
+				"webhooks": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/WebhookConfiguration"
+					}
+				}
+			}
+		},
+		"IntegrationServiceJob": {
+			"properties": {
+				"communicationPlanId": {
+					"type": "string"
+				},
+				"integrationServiceId": {
+					"type": "string"
+				},
+				"integrationServiceName": {
+					"type": "string"
+				},
+				"logged": {
+					"type": "boolean"
+				},
+				"orgKey": {
+					"type": "string"
+				},
+				"request": {
+					"$ref": "#/definitions/HttpRequest"
+				}
+			}
+		},
+		"EndpointConfiguration": {
+			"properties": {
+				"alias": {
+					"type": "string"
+				},
+				"authPreemptive": {
+					"type": "boolean"
+				},
+				"authType": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				},
+				"url": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				}
+			}
+		},
+		"BatchResult": {
+			"required": [
+				"batchSize",
+				"batchUuid",
+				"goldenTicketUuid",
+				"numCompleted",
+				"orgKey",
+				"scriptRunnerId"
+			],
+			"properties": {
+				"batchSize": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Batch size allotted by the Golden Ticket"
+				},
+				"batchUuid": {
+					"type": "string",
+					"description": "Unique key identifying the batch"
+				},
+				"goldenTicketUuid": {
+					"type": "string",
+					"description": "UUID for the Golden Ticket instance"
+				},
+				"numCompleted": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Actual number of jobs processed"
+				},
+				"orgKey": {
+					"type": "string",
+					"description": "Unique key identifying the org"
+				},
+				"scriptRunnerId": {
+					"type": "string",
+					"description": "Identifier of the script executor instance"
+				}
+			}
+		},
+		"LogCounterRequest": {
+			"properties": {
+				"loggedRequestsRemaining": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"TicketRequest": {
+			"required": [
+				"batchSize",
+				"numTickets"
+			],
+			"properties": {
+				"batchSize": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Max batch size of requests that will be processed before each ticket is returned to the queue"
+				},
+				"numTickets": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Number of tickets requested"
+				}
+			}
+		}
+	},
+	"parameters": {
+		"functionId": {
+			"name": "functionId",
+			"in": "path",
+			"description": "Unique function identifier",
+			"required": true,
+			"type": "string"
+		},
+		"executionId": {
+			"name": "executionId",
+			"in": "path",
+			"description": "Unique execution identifier",
+			"required": true,
+			"type": "string"
+		},
+		"orgId": {
+			"name": "orgId",
+			"in": "path",
+			"description": "Unique organization identifier",
+			"required": true,
+			"type": "string"
+		},
+		"offset": {
+			"name": "offset",
+			"in": "query",
+			"required": false,
+			"type": "integer"
+		},
+		"limit": {
+			"name": "offset",
+			"in": "query",
+			"required": false,
+			"type": "integer"
+		}
+	},
+	"responses": {
+		"202": {
+			"description": "Accepted"
+		},
+		"204": {
+			"description": "No Content"
+		},
+		"400": {
+			"description": "Bad Request",
+			"schema": {
+				"$ref": "#/definitions/BadRequestResponse"
+			}
+		},
+		"401": {
+			"description": "Unauthorized",
+			"schema": {
+				"$ref": "#/definitions/UnauthorizedResponse"
+			}
+		},
+		"403": {
+			"description": "Forbidden",
+			"schema": {
+				"$ref": "#/definitions/ForbiddenResponse"
+			}
+		},
+		"409": {
+			"description": "Conflict",
+			"schema": {
+				"$ref": "#/definitions/ConflictResponse"
+			}
+		},
+		"429": {
+			"description": "Too Many Requests",
+			"schema": {
+				"$ref": "#/definitions/TooManyRequestsResponse"
+			}
+		},
+		"500": {
+			"description": "Internal Error",
+			"schema": {
+				"$ref": "#/definitions/InternalServerErrorResponse"
+			}
+		}
+	}
+}
