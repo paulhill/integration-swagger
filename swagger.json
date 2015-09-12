@@ -162,7 +162,10 @@
 						"in": "body",
 						"name": "body",
 						"description": "body",
-						"required": true
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Execution"
+						}
 					}
 				],
 				"responses": {
