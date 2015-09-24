@@ -134,13 +134,13 @@
 				}
 			}
 		},
-		"/functions/{functionId}/executions": {
+		"/functions/{functionId}/invocations": {
 			"post": {
 				"tags": [
-					"Executions"
+					"Invocations"
 				],
 				"summary": "Execute the integration function specified with the payload provided.",
-				"operationId": "postFunctionExecution",
+				"operationId": "postFunctionInvocation",
 				"consumes": [
 					"application/json",
 					"application/xml",
@@ -164,7 +164,7 @@
 						"description": "body",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/Execution"
+							"$ref": "#/definitions/Invocation"
 						}
 					}
 				],
@@ -172,7 +172,7 @@
 					"202": {
 						"description": "Accepted",
 						"schema": {
-							"$ref": "#/definitions/Execution"
+							"$ref": "#/definitions/Invocation"
 						}
 					},
 					"400": {
@@ -193,13 +193,13 @@
 				}
 			}
 		},
-		"/executions/{executionId}/log": {
+		"/invocations/{invocationId}/log": {
 			"get": {
 				"tags": [
-					"Executions"
+					"Invocations"
 				],
-				"summary": "Fetch the log for an execution",
-				"operationId": "getExecutionLog",
+				"summary": "Fetch the log for an invocation",
+				"operationId": "getInvocationLog",
 				"consumes": [
 					"application/json"
 				],
@@ -208,7 +208,7 @@
 				],
 				"parameters": [
 					{
-						"$ref": "#/parameters/executionId"
+						"$ref": "#/parameters/invocationId"
 					}
 				],
 				"responses": {
@@ -368,7 +368,7 @@
 				}
 			}
 		},
-		"Execution": {
+		"Invocation": {
 			"properties": {
 				"stuff": {
 					"type": "string"
@@ -653,10 +653,10 @@
 			"required": true,
 			"type": "string"
 		},
-		"executionId": {
-			"name": "executionId",
+		"invocationId": {
+			"name": "invocationId",
 			"in": "path",
-			"description": "Unique execution identifier",
+			"description": "Unique invocation identifier",
 			"required": true,
 			"type": "string"
 		},
