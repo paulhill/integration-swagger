@@ -139,7 +139,7 @@
 				"tags": [
 					"Invocations"
 				],
-				"summary": "Invoke the integration function specified with the payload provided.",
+				"summary": "Trigger the integration function specified with the payload provided",
 				"operationId": "postFunctionTrigger",
 				"consumes": [
 					"application/json",
@@ -172,7 +172,7 @@
 					"202": {
 						"description": "Accepted",
 						"schema": {
-							"$ref": "#/definitions/Trigger"
+							"$ref": "#/definitions/Invocation"
 						}
 					},
 					"400": {
@@ -369,15 +369,11 @@
 			}
 		},
 		"Trigger": {
-			"properties": {
-				"stuff": {
-					"type": "string"
-				}
-			}
+			"properties": {}
 		},
 		"Invocation": {
 			"properties": {
-				"stuff": {
+				"id": {
 					"type": "string"
 				}
 			}
