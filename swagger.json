@@ -134,13 +134,13 @@
 				}
 			}
 		},
-		"/functions/{functionId}/invocations": {
+		"/functions/{functionId}/triggers": {
 			"post": {
 				"tags": [
 					"Invocations"
 				],
-				"summary": "Execute the integration function specified with the payload provided.",
-				"operationId": "postFunctionInvocation",
+				"summary": "Invoke the integration function specified with the payload provided.",
+				"operationId": "postFunctionTrigger",
 				"consumes": [
 					"application/json",
 					"application/xml",
@@ -164,7 +164,7 @@
 						"description": "body",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/Invocation"
+							"$ref": "#/definitions/Trigger"
 						}
 					}
 				],
@@ -172,7 +172,7 @@
 					"202": {
 						"description": "Accepted",
 						"schema": {
-							"$ref": "#/definitions/Invocation"
+							"$ref": "#/definitions/Trigger"
 						}
 					},
 					"400": {
@@ -362,6 +362,13 @@
 	},
 	"definitions": {
 		"Function": {
+			"properties": {
+				"stuff": {
+					"type": "string"
+				}
+			}
+		},
+		"Trigger": {
 			"properties": {
 				"stuff": {
 					"type": "string"
