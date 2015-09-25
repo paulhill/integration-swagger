@@ -369,6 +369,7 @@
 			}
 		},
 		"Trigger": {
+			"description": "A random blob of whatever",
 			"properties": {}
 		},
 		"Invocation": {
